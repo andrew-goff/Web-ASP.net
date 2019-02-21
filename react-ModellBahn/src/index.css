@@ -1,0 +1,27 @@
+body {
+  margin: 20px;
+  font-family: "Century Gothic", Futura, sans-serif;
+  padding: 14px;
+}
+
+ol, ul {
+	padding-left: 30px;
+}
+
+.square{
+	border: 1px solid #999;
+	float: left;
+	font-size: 2em;
+	font-weight: 1em;
+	line-height: 1em;
+	font-style: bold;
+	height: 4em;
+	width: 4em;
+	display: table;
+}
+
+.board-row:after{
+	clear: both;
+	content: "";
+	display: table;
+}
