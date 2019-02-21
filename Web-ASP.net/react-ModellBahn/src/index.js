@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import injectSheet, { jss, ThemeProvider } from 'react-jss';
 import logo from './logo.svg';
 import './index.css';
 import App from './App';
@@ -8,13 +10,43 @@ import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
 
-function Square(props) {	 
-	return (
-		<button className="square" onClick={props.onClick}>
-			{props.value}
-		</button>			
-	);
-}
+class NavBar extends React.Component {
+	addNavBar(i){
+		const NavBar = {
+				BACK: 0,
+				RETURN: 1,
+				INVENTORY: 2,
+				HOME: 3  
+		}
+	}
+	
+	addFooter(){
+		
+	}
+	
+	//init() {
+	//	addNavBar(NavMenu.HOME);
+	//    addFooter();
+	//}
+	
+	renderaddNavBar(i){
+		return(		
+		<NavBar>  			
+		value={this.state.addNavBar[i]} 
+		onClick={() => this.init()}
+		</NavBar>
+		);
+	}
+	
+	renderaddFooter(){
+		return(
+		<footer>
+		</footer>
+		);
+	}
+};
+
+
 
 class Board extends React.Component {
 	constructor(props) {
@@ -37,15 +69,6 @@ class Board extends React.Component {
 			sqaures: squares, 
 			xIsNext: !this.state.xIsNext,
 		});
-	}
-	
-	renderSquare(i){
-		return(
-		<Square>  			
-		value={this.state.squares[i]} 
-		onClick={() => this.handleClick(i)}
-		</Square>
-		);
 	}
 	
 	render(){
@@ -89,37 +112,32 @@ React.createElement(
 	null
 );
 
-class Game extends React.Component {
+class Menu extends React.Component {
 	render() {		
 		return(
-		<div className="game">
-			<header className="Home-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<h1 className="App-title">Welcome to React</h1>
-			</header>
-			<p className="Home-intro">
-				To get started, edit <code>src/App.js</code> and save to reload.
-			</p>
-			<div className="game-board">
-				<Board />
-			</div>
-			<div className="game-info">
-				<div>{/*Status*/}</div>
-				<ol>{/*TODO*/}</ol>
-			</div>
-			
-			<footer>
-    			<h2 className="URL-title">Links</h2>
-    			<li><a class="btn btn-info btn-sm" href='App.js'>Index </a></li>,
-    			<li><a class="btn btn-info btn-sm" href='NoughtCrosses.js'>Nought and Crosses game </a></li>
-    		</footer>
+		<div className="Modellbahn">
+			<title className="Index-header">
+				<h1 className="title">ModellBahn</h1>
+			</title>
+			<body onload="init()">
+				<header className="Index-intro">
+					<h1 className="title">ModellBahn</h1>				
+				</header>
+				<section className="Index-article">
+					<article />
+				</section>
+				<div className="Index-info">
+					<div>{/*Status*/}</div>
+					<ol>{/*TODO*/}</ol>
+				</div>
+    		</body>
 		</div>
 		);
 	}
 }
 
 ReactDOM.render(
-	<Game />,
+	<Menu />,
 	document.getElementById('root')
 );
 
