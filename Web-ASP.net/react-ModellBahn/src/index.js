@@ -1,46 +1,158 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
-import injectSheet, { jss, ThemeProvider } from 'react-jss';
+import jss from 'jss';
+import injectSheet, { ThemeProvider } from 'react-jss';
 import logo from './logo.svg';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+const styles = {
+	html: {
+		mstextsizeadjust: 'auto',
+		mozboxsizing: 'border-box',
+		webkitboxsizing: 'border-box',
+		webkittextsizeadjust: 'auto',
+		backgroundcolor: 'LightYellow',
+		boxsizing: 'border-box',
+		borderradius: '0.25em',
+		display: 'block',
+		fontfamily: 'Verdana, sans-serif',
+		fontsize: '12px',
+		lineheight: '0.15rem',
+		overflow: 'hidden',
+		padding: '0.5rem'
+	},
+		
+	header: {
+		backgroundcolor: 'inherit',
+		height: 'auto',
+		position: 'fixed',
+		top: 0,
+	},
+	
+	button: {
+		 backgroundcolor: 'LightSkyBlue',
+		 border: '0.1rem solid LightSkyBlue',
+		 borderradius: '0.25em',
+		 color: 'white',
+		 fontsize: '1rem',
+		 padding: '0.3rem 0.3rem'
+	},
+	
+	body: {
+		 border: 'transparent 0',
+		 margin: 0,
+		 opacity: 1,
+		 overflow: 'hidden',
+		 padding: '0 1rem 0 0',
+		 width: '98%'
+	},
+	
+	title: {
+		
+	},
+	
+	section: {
+		
+	},
+	
+	footer: {
+		
+	}
+};	
+
+const sheet = jss.createStyleSheet(sheet);
+
+jss.setup({
+	insertionPoint: document.getElementById('insertion-point')
+});
+
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
 
 class NavBar extends React.Component {
-	addNavBar(i){
+	addNavBar(){
 		const NavBar = {
 				BACK: 0,
 				RETURN: 1,
 				INVENTORY: 2,
 				HOME: 3  
 		}
-	}
-	
-	addFooter(){
+		
+		const addNavBar = (menuStyle) => {
+			let header = document.getElementsByTagName('HEADER')[0];
+			header.removeChildren(header);
+			
+			let nav = document.createElement(nav);
+			header.appendChild(nav);
+			
+			if (menuStyle === NavBar.HOME) {
+				header.addHeading(nav, 'h1', 'MODELLBAHN');
+				header.addRule(nav);
+			}
+		}
+		
+		const NavMenu = {
+		
+		}
+		
 		
 	}
 	
-	//init() {
-	//	addNavBar(NavMenu.HOME);
-	//    addFooter();
-	//}
+	createFooter(){
+		const navLink = (title, href, action, id) => {
+			let li = document.getElementById('li');
+			let a = document.getElementById('a');
+			if (id) { 
+				a.id = id;
+			}
+			
+			a.className = 'nav-button';
+			a.href = href;
+			li.appendChild(a);
+			return li;
+		}
+		
+		const addFooter = () => {
+			let div = document.getElementsByTagName('FOOTER')[0];
+			div.removeChildren(div);
+			
+			let hr = document.createElement('hr');
+			hr.className = "highlight";
+			div.appendChild(hr);
+			
+			let ul = document.createElement('ul');
+			ul.className = "footer";
+			div.appendChild(ul);
+			
+			let li = document.createElement('li');
+			div.addText(li, 'COPYRIGHT');
+			div.appendChild(li);
+			
+			ul.appendChild(navLink('ABOUT', '#', div.about, 'license'));
+		}
+	}
 	
-	renderaddNavBar(i){
+	init() {
+	//	addNavBar(NavBar.HOME);
+	//	addFooter();
+	}
+	
+	renderNavBar(){
 		return(		
 		<NavBar>  			
-		value={this.state.addNavBar[i]} 
+		value={this.const.addNavBar()} 
 		onClick={() => this.init()}
 		</NavBar>
 		);
 	}
 	
-	renderaddFooter(){
+	renderFooter(){
 		return(
 		<footer>
+		value={this.const.addFooter()}
 		</footer>
 		);
 	}
@@ -115,11 +227,11 @@ React.createElement(
 class Menu extends React.Component {
 	render() {		
 		return(
-		<div className="Modellbahn">
+		<div className="Modellbahn" id="insertion-point">
 			<title className="Index-header">
 				<h1 className="title">ModellBahn</h1>
 			</title>
-			<body onload="init()">
+			<body onload="renderNavBar()">
 				<header className="Index-intro">
 					<h1 className="title">ModellBahn</h1>				
 				</header>
@@ -129,6 +241,8 @@ class Menu extends React.Component {
 				<div className="Index-info">
 					<div>{/*Status*/}</div>
 					<ol>{/*TODO*/}</ol>
+				</div>
+				<div onload="renderFooter()">
 				</div>
     		</body>
 		</div>

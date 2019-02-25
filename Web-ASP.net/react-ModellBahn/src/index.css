@@ -1,3 +1,19 @@
+html {
+  -ms-text-size-adjust: auto;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -webkit-text-size-adjust: auto;
+  background-color: LightYellow;
+  box-sizing: border-box;
+  border-radius: 0.25em;
+  display: block;
+  font-family: Verdana, sans-serif;
+  font-size: 12px;
+  line-height: 0.15rem;
+  overflow: hidden;
+  padding: 0.5rem;
+}
+
 body {
   margin: 20px;
   font-family: "Century Gothic", Futura, sans-serif;
