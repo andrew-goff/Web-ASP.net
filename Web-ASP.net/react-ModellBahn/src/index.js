@@ -52,6 +52,16 @@ const styles = {
 		 width: '98%'
 	},
 	
+	thead: {
+	  backgroundcolor: 'LightSkyBlue',
+	  color: 'white',
+	  fontweight: 'bold',
+	  height: '3rem',
+	  padding: 0,
+	  textalign: 'left',
+	  width: '100%'
+	},
+
 	title: {
 		
 	},
@@ -84,15 +94,13 @@ const styles = {
 	  textalign: 'center',
 	  width: '100%'
 	}
-};	
+}	
 
-const sheet = jss.createStyleSheet(styles);
+const sheet = jss.createStyleSheet(styles).attach();
 
 jss.setup({
 	insertionPoint: document.getElementById('insertion-point')
 });
-
-sheet.attach();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -232,29 +240,27 @@ React.createElement(
 class Menu extends React.Component {
 	render() {		
 		return(
-		<body>
-			<div id="insertion-point">
-				<div className="Modellbahn"> 
-					<title className="Index-header">
-						<h1 className="title">ModellBahn</h1>
-					</title>
-					<div className="renderNavBar(i)">
-					</div>
-					<header className="Index-intro">
-						<h1 className="title">ModellBahn</h1>				
-					</header>
-					<section className="Index-article">
-						<article />
-					</section>
-					<div className="Index-info">
-						<div>{/*Status*/}</div>
-						<ol>{/*TODO*/}</ol>
-					</div>
-					<div id="renderFooter(i)">
-					</div>
+		<div className="Modellbahn"> 
+			<title className="Index-header">
+				<h1 className="title">ModellBahn</h1>
+			</title>
+			<header className="Index-intro">
+				<h1 className="title">ModellBahn</h1>				
+			</header>
+			<style data-meta="sheet">
+				<div className="renderNavBar(i)">
 				</div>
-    		</div>
-		</body>
+				<section className="Index-article">
+					<article />
+				</section>
+				<div className="Index-info">
+					<div>{/*Status*/}</div>
+					<ol>{/*TODO*/}</ol>
+				</div>
+				<div id="renderFooter(i)">
+				</div>
+			</style>
+    	</div>
 		);
 	}
 }
