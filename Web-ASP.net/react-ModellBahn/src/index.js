@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
 import jss from 'jss';
-import injectSheet, { ThemeProvider } from 'react-jss';
-import logo from './logo.svg';
+import preset from 'jss-preset-default';
+import injectSheet from 'react-jss';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+
+
+jss.setup(preset());
 
 const styles = {
 	html: {
@@ -54,54 +56,97 @@ const styles = {
 		
 	},
 	
+	table: {
+		 bordercollapse: 'collapse',
+		 borderbottom: '0.1rem solid LightSkyBlue',
+		 overflow: 'hidden',
+		 padding: 0,
+		 tablelayout: 'fixed',
+		 textalign: 'left',
+		 verticalalign: 'middle',
+		 width: '100%'
+	},
+	
 	section: {
-		
+	  backgroundcolor: 'inherit',
+	  height: 'auto',
+	  position: 'fixed',
+	  width: 'inherit',
+
 	},
 	
 	footer: {
-		
+	  backgroundcolor: 'LightSkyBlue',
+	  color: 'white',
+	  fontweight: 'bold',
+	  height: '2.5rem',
+	  padding: 0,
+	  textalign: 'center',
+	  width: '100%'
 	}
 };	
 
-const sheet = jss.createStyleSheet(sheet);
+const sheet = jss.createStyleSheet(styles);
 
 jss.setup({
 	insertionPoint: document.getElementById('insertion-point')
 });
 
+sheet.attach();
+
 ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+
+function initialise(navmenu){
+	return(		
+	<NavBar className="" onClick={navmenu.OnClick(NavBar.HOME)}> 
+		{navmenu.value}
+	</NavBar>
+	);
+}
+
 
 class NavBar extends React.Component {
-	addNavBar(){
-		const NavBar = {
-				BACK: 0,
-				RETURN: 1,
-				INVENTORY: 2,
-				HOME: 3  
+	constructor(navmenu) {
+		super(navmenu);
+		this.state = {
+			BACK: 0,
+			REF_DATA: 1,
+			INVENTORY: 2,
+			HOME: 3 
 		}
-		
+	}
+
+	addNavBar(){
 		const addNavBar = (menuStyle) => {
 			let header = document.getElementsByTagName('HEADER')[0];
 			header.removeChildren(header);
 			
-			let nav = document.createElement(nav);
+			let nav = document.createElement('nav');
 			header.appendChild(nav);
 			
 			if (menuStyle === NavBar.HOME) {
 				header.addHeading(nav, 'h1', 'MODELLBAHN');
 				header.addRule(nav);
 			}
+			return header;
 		}
 		
 		const NavMenu = {
-		
+			BACK: 0,
+			REF_DATA: 1,
+			INVENTORY: 2,
+			HOME: 3 
 		}
 		
+		//addNavBar = this.state.NavMenu? '0' : '1' ; '2' ; '3';
 		
+		this.setState({
+			addNavBar: addNavBar,
+			NavMenu: NavMenu,
+		});
 	}
 	
-	createFooter(){
+	addFooter(i){
 		const navLink = (title, href, action, id) => {
 			let li = document.getElementById('li');
 			let a = document.getElementById('a');
@@ -111,6 +156,10 @@ class NavBar extends React.Component {
 			
 			a.className = 'nav-button';
 			a.href = href;
+			if (action) { 
+				a.addEventListener('click', action); 
+			}
+			a.addText(a, title);
 			li.appendChild(a);
 			return li;
 		}
@@ -131,92 +180,47 @@ class NavBar extends React.Component {
 			div.addText(li, 'COPYRIGHT');
 			div.appendChild(li);
 			
-			ul.appendChild(navLink('ABOUT', '#', div.about, 'license'));
+			ul.appendChild(navLink('ABOUT', '#', div.about, 'license'));	
 		}
+		
+		//addFooter = this.state.addFooter (div, hr, ul, navLink);
+		
+		this.setState({
+			navLink: navLink,
+			addFooter: this.state.addFooter,
+		});
+		
+		
 	}
 	
 	init() {
 	//	addNavBar(NavBar.HOME);
-	//	addFooter();
-	}
-	
-	renderNavBar(){
-		return(		
-		<NavBar>  			
-		value={this.const.addNavBar()} 
-		onClick={() => this.init()}
-		</NavBar>
-		);
-	}
-	
-	renderFooter(){
-		return(
-		<footer>
-		value={this.const.addFooter()}
-		</footer>
-		);
-	}
-};
 
+		const NavBar = this.state.NavBar.slice();
 
-
-class Board extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			squares: Array(9).fill(null),
-			xIsNext: true,
-		};
-	}
-	
-	handleClick(i){
-		const squares = this.state.squares.slice();
-		
-		if (calculateWinner(squares) || squares[i]){
-			return;
-		}
-		squares[i] = this.state.xIsNext? 'X' : 'O';
-		
 		this.setState({
-			sqaures: squares, 
-			xIsNext: !this.state.xIsNext,
+			NavBar: NavBar,
 		});
 	}
 	
-	render(){
-		const winner = calculateWinner(this.state.squares);
-		let status;
-
-		if (winner) {
-			status = 'Winner:' + winner;
-		}
+	renderNavBar(i){
+		return(		
+			<NavBar>  			
+			value={this.addNavBar(NavBar.HOME)} 
+			onClick={() => this.addNavBar(i)}
+			</NavBar>
+		);
+	};
 	
-		else {
-			const status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O');	
-		}
-			
+	renderFooter(i){
 		return(
-			  <div>
-				<div className="status">{status}</div>
-					<div className="board-row">
-						{this.renderSquare(0)}
-						{this.renderSquare(1)}
-						{this.renderSquare(2)}
-					</div>
-				<div className="board-row">
-						{this.renderSquare(3)}
-						{this.renderSquare(4)}
-						{this.renderSquare(5)}
-				</div>
-				<div className="board-row">
-					{this.renderSquare(6)}
-					{this.renderSquare(7)}
-					{this.renderSquare(8)}
-				</div>
-			</div>
-			);
-		}
-}
+			<footer>
+			value={this.state.addFooter()}
+			onClick={() => this.addFooter(i)}
+			</footer>
+		);
+	}
+};
 
 React.createElement(
 	'div',
@@ -224,28 +228,33 @@ React.createElement(
 	null
 );
 
+
 class Menu extends React.Component {
 	render() {		
 		return(
-		<div className="Modellbahn" id="insertion-point">
-			<title className="Index-header">
-				<h1 className="title">ModellBahn</h1>
-			</title>
-			<body onload="renderNavBar()">
-				<header className="Index-intro">
-					<h1 className="title">ModellBahn</h1>				
-				</header>
-				<section className="Index-article">
-					<article />
-				</section>
-				<div className="Index-info">
-					<div>{/*Status*/}</div>
-					<ol>{/*TODO*/}</ol>
+		<body>
+			<div id="insertion-point">
+				<div className="Modellbahn"> 
+					<title className="Index-header">
+						<h1 className="title">ModellBahn</h1>
+					</title>
+					<div className="renderNavBar(i)">
+					</div>
+					<header className="Index-intro">
+						<h1 className="title">ModellBahn</h1>				
+					</header>
+					<section className="Index-article">
+						<article />
+					</section>
+					<div className="Index-info">
+						<div>{/*Status*/}</div>
+						<ol>{/*TODO*/}</ol>
+					</div>
+					<div id="renderFooter(i)">
+					</div>
 				</div>
-				<div onload="renderFooter()">
-				</div>
-    		</body>
-		</div>
+    		</div>
+		</body>
 		);
 	}
 }
@@ -254,26 +263,3 @@ ReactDOM.render(
 	<Menu />,
 	document.getElementById('root')
 );
-
-function calculateWinner(squares){
-	const lines = [
-		[0, 1, 2],
-		[3, 4, 5],
-		[6, 7, 8],
-		[0, 3, 6],
-		[1, 4, 7],
-		[2, 5, 8],
-		[0, 4, 8],
-		[2, 4, 6],
-	];
-	
-	for (let i = 0; i < lines.length; i++){
-		const [a, b, c] = lines[i];
-		
-		if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-			return squares[a];
-		}
-	}
-	
-	return null;
-}
