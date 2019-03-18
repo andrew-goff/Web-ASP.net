@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import Paper from '@material-ui/core/Paper';
+import Menu, { MenuItem } from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import jss from 'jss';
@@ -123,10 +124,45 @@ const sheet = jss.createStyleSheet(styles)
 
 sheet.attach()
 
-function App() {	
-    return (
-        <div id="insertion-point"> 
-        	<div className="App">
+function App() {
+	class init extends App {
+		rendernav(){
+			const NavMenu = {
+				BACK: 0,
+				REF_DATA: 1,
+				INVENTORY: 2,
+				HOME: 3 
+			};
+		
+			const addNavBar = this.state.NavMenu.slice();
+			const ACHSFOLG_DROP = new Menu();
+			addNavBar(NavBar.HOME);
+			ACHSFOLG_DROP.init();
+			this.setState({
+				NavBar: NavBar,
+			});
+		}
+		
+		state = {
+			anchorEl: null,
+			open: false,
+		};
+		
+		handleClick = (event) => {
+			this.setState({open: true, anchorEl: event.currentTarget});
+		};
+		
+		handleClickClose(){
+			this.setState({open: false});
+		};
+		
+		render(){
+			const { anchorEl } = this.state;	
+		};
+	}
+	return (
+		<div id="insertion-point"> 
+			<div className="App">
         		<title className="header">
         			<h1 className="title">ModellBahn</h1>
         		</title>
@@ -136,20 +172,21 @@ function App() {
         		<Grid container spacing={8} direction="row"  justify="center" alignItems="center">
         			<h3 className="thead">Ref Data</h3>
         			<Grid item xs={4}>
-        				<Paper className="paper">	
-          				</Paper>
-          			</Grid>
+        				<Paper className="paper">Categories</Paper>
+        			</Grid>
           			<h3 className="thead">Inventory</h3>
           			<Grid item xs={4}>
-          				<Paper className="renderNav()" color="secondary">	
-          				</Paper>
-      				</Grid>
+          				<Menu id="init" className="render()" anchorEl={this.anchorEl} open={this.state.open} onRequestClose={this.handleClickClose()}>
+          					<MenuItem>Articles</MenuItem>
+          					<MenuItem>Decoders</MenuItem>
+          				</Menu>
+          			</Grid>
       			</Grid>
-	        	<footer className="renderFooter(i)">
+      			<footer className="renderFooter(i)">
 				</footer>
-        	</div>
+			</div>
         </div>
-    );
+    );	
 }
 
 ReactDOM.render(<App />, document.querySelector("#App"));
@@ -266,7 +303,7 @@ React.createElement(
 );
 
 
-class Menu extends React.Component {
+class menu extends React.Component {
 	render() {		
 		return(
 		<div className="Modellbahn"> 
@@ -285,6 +322,6 @@ class Menu extends React.Component {
 }
 
 ReactDOM.render(
-	<Menu />,
+	<menu />,
 	document.getElementById('root')
 );
