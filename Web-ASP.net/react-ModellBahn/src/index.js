@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render } from 'react-dom';
+import Grid from '@material-ui/core/Grid';
+import GridList from '@material-ui/core/GridList';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import { withStyles } from '@material-ui/core/styles';
 import jss from 'jss';
-import preset from 'jss-preset-default';
-import injectSheet from 'react-jss';
+//import preset from 'jss-preset-default';
 import './index.css';
-import App from './App';
+import './App.css';
 
+jss.setup({
+	insertionPoint: document.getElementById('insertion-point')
+})
 
-jss.setup(preset());
-
-const styles = {
+const styles = theme => ({
 	html: {
 		mstextsizeadjust: 'auto',
 		mozboxsizing: 'border-box',
@@ -63,7 +67,26 @@ const styles = {
 	},
 
 	title: {
-		
+		backgroundcolor: 'LightSkyBlue',
+		color: 'white',
+		fontweight: 'bold',
+		height: '2.5rem',
+		padding: 0,
+		textalign: 'center',
+		width: '100%'
+	},
+	
+	paper: {
+		bordercollapse: 'collapse',
+		color: 'LightSkyBlue',
+		borderbottom: '0.1rem solid LightSkyBlue',
+		overflow: 'hidden',
+		marginbottom: theme.spacing.unit,
+		padding: theme.spacing.unit,
+		tablelayout: 'fixed',
+		textalign: 'left',
+		verticalalign: 'middle',
+		width: '100%'
 	},
 	
 	table: {
@@ -94,37 +117,52 @@ const styles = {
 	  textalign: 'center',
 	  width: '100%'
 	}
-}	
+});	
 
-const sheet = jss.createStyleSheet(styles).attach();
+const sheet = jss.createStyleSheet(styles)
 
-jss.setup({
-	insertionPoint: document.getElementById('insertion-point')
-});
+sheet.attach()
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-function initialise(navmenu){
-	return(		
-	<NavBar className="" onClick={navmenu.OnClick(NavBar.HOME)}> 
-		{navmenu.value}
-	</NavBar>
-	);
+function App() {	
+    return (
+        <div id="insertion-point"> 
+        	<div className="App">
+        		<title className="header">
+        			<h1 className="title">ModellBahn</h1>
+        		</title>
+        		<header className="header">
+        			<h1 className="title">ModellBahn</h1>				
+        		</header>
+        		<Grid container spacing={8} direction="row"  justify="center" alignItems="center">
+        			<h3 className="thead">Ref Data</h3>
+        			<Grid item xs={4}>
+        				<Paper className="paper">	
+          				</Paper>
+          			</Grid>
+          			<h3 className="thead">Inventory</h3>
+          			<Grid item xs={4}>
+          				<Paper className="renderNav()" color="secondary">	
+          				</Paper>
+      				</Grid>
+      			</Grid>
+	        	<footer className="renderFooter(i)">
+				</footer>
+        	</div>
+        </div>
+    );
 }
 
+ReactDOM.render(<App />, document.querySelector("#App"));
 
-class NavBar extends React.Component {
-	constructor(navmenu) {
-		super(navmenu);
-		this.state = {
+class NavBar extends React.Component {	
+	addNavBar(){
+		const NavMenu = {
 			BACK: 0,
 			REF_DATA: 1,
 			INVENTORY: 2,
 			HOME: 3 
-		}
-	}
-
-	addNavBar(){
+		};
+		
 		const addNavBar = (menuStyle) => {
 			let header = document.getElementsByTagName('HEADER')[0];
 			header.removeChildren(header);
@@ -139,21 +177,31 @@ class NavBar extends React.Component {
 			return header;
 		}
 		
-		const NavMenu = {
-			BACK: 0,
-			REF_DATA: 1,
-			INVENTORY: 2,
-			HOME: 3 
-		}
-		
-		//addNavBar = this.state.NavMenu? '0' : '1' ; '2' ; '3';
-		
 		this.setState({
 			addNavBar: addNavBar,
 			NavMenu: NavMenu,
-		});
+		});	
+	};
+	
+	init() {
+		const addNavBar = this.state.NavBar.slice();
+		addNavBar(NavBar.HOME);
+		this.setState({
+			NavBar: NavBar,
+		});	
 	}
 	
+	renderNav(){
+		return(		
+			<NavBar>  			
+					value={this.addNavBar(NavBar.HOME)} 
+					onClick={() => this.addNavBar()}
+			</NavBar>
+		);
+	}
+};
+
+class Footer extends React.Component {	
 	addFooter(i){
 		const navLink = (title, href, action, id) => {
 			let li = document.getElementById('li');
@@ -199,30 +247,11 @@ class NavBar extends React.Component {
 		});
 		
 		
-	}
-	
-	init() {
-	//	addNavBar(NavBar.HOME);
-
-		const NavBar = this.state.NavBar.slice();
-
-		this.setState({
-			NavBar: NavBar,
-		});
-	}
-	
-	renderNavBar(i){
-		return(		
-			<NavBar>  			
-			value={this.addNavBar(NavBar.HOME)} 
-			onClick={() => this.addNavBar(i)}
-			</NavBar>
-		);
-	};
+	}	
 	
 	renderFooter(i){
 		return(
-			<footer>
+			<footer className="footer">
 			value={this.state.addFooter()}
 			onClick={() => this.addFooter(i)}
 			</footer>
@@ -241,23 +270,13 @@ class Menu extends React.Component {
 	render() {		
 		return(
 		<div className="Modellbahn"> 
-			<title className="Index-header">
-				<h1 className="title">ModellBahn</h1>
-			</title>
-			<header className="Index-intro">
-				<h1 className="title">ModellBahn</h1>				
-			</header>
 			<style data-meta="sheet">
-				<div className="renderNavBar(i)">
-				</div>
 				<section className="Index-article">
 					<article />
 				</section>
 				<div className="Index-info">
 					<div>{/*Status*/}</div>
 					<ol>{/*TODO*/}</ol>
-				</div>
-				<div id="renderFooter(i)">
 				</div>
 			</style>
     	</div>

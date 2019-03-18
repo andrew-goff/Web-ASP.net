@@ -31,6 +31,37 @@ body {
   padding: 14px;
 }
 
+thead {
+      background-color: 'LightSkyBlue';
+      color: 'white';
+      font-weight: 'bold';
+      height: '3rem';
+      padding: 0;
+      text-align: 'left';
+      width: '100%';
+},
+
+title {
+    background-color: 'LightSkyBlue';
+    color: 'white';
+    font-weight: 'bold';
+    height: '2.5rem';
+    padding: 0;
+    text-align: 'center';
+    width: '100%';
+}
+
+paper {
+    border-collapse: 'collapse';
+    border-bottom: '0.1rem solid LightSkyBlue';
+    overflow: 'hidden';
+    padding: 0;
+    tablelayout: 'fixed';
+    textalign: 'left';
+    verticalalign: 'middle';
+    width: '100%';
+}
+
 ol, ul {
 	padding-left: 30px;
 }
@@ -51,4 +82,22 @@ ol, ul {
 	clear: both;
 	content: "";
 	display: table;
+}
+
+section {
+      backgroundcolor: 'inherit';
+      height: 'auto';
+      position: 'fixed';
+      width: 'inherit';
+
+}
+    
+footer {
+      background-color: 'LightSkyBlue';
+      color: 'white';
+      font-weight: 'bold';
+      height: '2.5rem';
+      padding: 0;
+      text-align: 'center';
+      width: '100%';
 }
