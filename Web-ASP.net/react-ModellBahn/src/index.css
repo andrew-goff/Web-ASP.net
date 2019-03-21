@@ -54,6 +54,7 @@ title {
 paper {
     border-collapse: 'collapse';
     border-bottom: '0.1rem solid LightSkyBlue';
+    background-color: 'LightSkyBlue';
     overflow: 'hidden';
     padding: 0;
     tablelayout: 'fixed';
