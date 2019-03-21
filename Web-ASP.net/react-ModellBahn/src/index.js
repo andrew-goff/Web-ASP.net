@@ -125,41 +125,7 @@ const sheet = jss.createStyleSheet(styles)
 sheet.attach()
 
 function App() {
-	class init extends App {
-		rendernav(){
-			const NavMenu = {
-				BACK: 0,
-				REF_DATA: 1,
-				INVENTORY: 2,
-				HOME: 3 
-			};
-		
-			const addNavBar = this.state.NavMenu.slice();
-			const ACHSFOLG_DROP = new Menu();
-			addNavBar(NavBar.HOME);
-			ACHSFOLG_DROP.init();
-			this.setState({
-				NavBar: NavBar,
-			});
-		}
-		
-		state = {
-			anchorEl: null,
-			open: false,
-		};
-		
-		handleClick = (event) => {
-			this.setState({open: true, anchorEl: event.currentTarget});
-		};
-		
-		handleClickClose(){
-			this.setState({open: false});
-		};
-		
-		render(){
-			const { anchorEl } = this.state;	
-		};
-	}
+	
 	return (
 		<div id="insertion-point"> 
 			<div className="App">
@@ -171,15 +137,21 @@ function App() {
         		</header>
         		<Grid container spacing={8} direction="row"  justify="center" alignItems="center">
         			<h3 className="thead">Ref Data</h3>
-        			<Grid item xs={4}>
-        				<Paper className="paper">Categories</Paper>
+        			<Grid item xs={2}>
+        				<Paper className="initMenu">Categories</Paper>
         			</Grid>
           			<h3 className="thead">Inventory</h3>
-          			<Grid item xs={4}>
-          				<Menu id="init" className="render()" anchorEl={this.anchorEl} open={this.state.open} onRequestClose={this.handleClickClose()}>
-          					<MenuItem>Articles</MenuItem>
-          					<MenuItem>Decoders</MenuItem>
-          				</Menu>
+          			<Grid item xs={2}>
+          				<Paper className="initMenu">Articles</Paper>
+          			</Grid>
+          			<Grid item xs={2}>
+          				<Paper className="initMenu">Decoders</Paper>
+          			</Grid>
+          			<Grid item xs={2}>
+          				<Paper className="initMenu">Prototypes</Paper>
+          			</Grid>
+          			<Grid item xs={2}>
+          				<Paper className="initMenu">Trains</Paper>
           			</Grid>
       			</Grid>
       			<footer className="renderFooter(i)">
@@ -188,6 +160,56 @@ function App() {
         </div>
     );	
 }
+
+class initMenu extends App {
+	rendernav(){
+		const NavMenu = {
+			BACK: 0,
+			REF_DATA: 1,
+			INVENTORY: 2,
+			HOME: 3 
+		};
+	
+		const addNavBar = this.state.NavMenu.slice();
+		const ACHSFOLG_DROP = new Menu();
+		addNavBar(NavBar.HOME);
+		ACHSFOLG_DROP.init();
+		this.setState({
+			NavBar: NavBar,
+		});
+	}
+	
+	state = {
+		anchorEl: null,
+		open: false,
+	};
+	
+	handleClick = (event) => {
+		this.setState({open: true, anchorEl: event.currentTarget});
+	};
+	
+	handleClickClose(){
+		this.setState({open: false});
+	};
+	
+	render(){
+		const { anchorEl } = this.state;
+		return(
+		<div>
+			<Menu id="init" anchorEl={this.anchorEl} open={this.state.open} onRequestClose={this.handleClickClose()}>
+				<MenuItem onClick={this.handleClickClose()}>Categories</MenuItem>
+      			<MenuItem onClick={this.handleClickClose()}>Articles</MenuItem>
+      			<MenuItem onClick={this.handleClickClose()}>Decoders</MenuItem>
+      			<MenuItem onClick={this.handleClickClose()}>Products</MenuItem>
+      			<MenuItem onClick={this.handleClickClose()}>Prototypes</MenuItem>
+      			<MenuItem onClick={this.handleClickClose()}>Trains</MenuItem>
+      		</Menu>	
+      	</div>
+      	);
+	}	
+	
+}
+export default initMenu;
 
 ReactDOM.render(<App />, document.querySelector("#App"));
 
