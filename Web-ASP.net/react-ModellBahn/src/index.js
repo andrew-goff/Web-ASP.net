@@ -125,7 +125,6 @@ const sheet = jss.createStyleSheet(styles)
 sheet.attach()
 
 function App() {
-	
 	return (
 		<div id="insertion-point"> 
 			<div className="App">
@@ -140,6 +139,24 @@ function App() {
         			<Grid item xs={2}>
         				<Paper className="initMenu">Categories</Paper>
         			</Grid>
+        			<Grid item xs={2}>
+    					<Paper className="initMenu">Classes</Paper>
+    				</Grid>
+    				<Grid item xs={2}>
+						<Paper className="initMenu">Construction</Paper>
+					</Grid>
+					<Grid item xs={2}>
+						<Paper className="initMenu">Controls</Paper>
+					</Grid>
+					<Grid item xs={2}>
+						<Paper className="initMenu">Countries</Paper>
+					</Grid>
+					<Grid item xs={2}>
+						<Paper className="initMenu">Couplings</Paper>
+					</Grid>
+					<Grid item xs={2}>
+						<Paper className="initMenu">Currencies</Paper>
+					</Grid>
           			<h3 className="thead">Inventory</h3>
           			<Grid item xs={2}>
           				<Paper className="initMenu">Articles</Paper>
@@ -193,11 +210,16 @@ class initMenu extends App {
 	};
 	
 	render(){
-		const { anchorEl } = this.state;
 		return(
 		<div>
 			<Menu id="init" anchorEl={this.anchorEl} open={this.state.open} onRequestClose={this.handleClickClose()}>
 				<MenuItem onClick={this.handleClickClose()}>Categories</MenuItem>
+				<MenuItem onClick={this.handleClickClose()}>Classes</MenuItem>
+				<MenuItem onClick={this.handleClickClose()}>Construction</MenuItem>
+				<MenuItem onClick={this.handleClickClose()}>Controls</MenuItem>
+				<MenuItem onClick={this.handleClickClose()}>Countries</MenuItem>
+				<MenuItem onClick={this.handleClickClose()}>Couplings</MenuItem>
+				<MenuItem onClick={this.handleClickClose()}>Currencies</MenuItem>
       			<MenuItem onClick={this.handleClickClose()}>Articles</MenuItem>
       			<MenuItem onClick={this.handleClickClose()}>Decoders</MenuItem>
       			<MenuItem onClick={this.handleClickClose()}>Products</MenuItem>
@@ -209,7 +231,7 @@ class initMenu extends App {
 	}	
 	
 }
-export default initMenu;
+export default(initMenu);
 
 ReactDOM.render(<App />, document.querySelector("#App"));
 
