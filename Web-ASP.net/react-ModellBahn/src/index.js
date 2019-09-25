@@ -1,15 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
-import Paper from '@material-ui/core/Paper';
-import Menu, { MenuItem } from '@material-ui/core/Menu';
-import Divider from '@material-ui/core/Divider';
-import { withStyles } from '@material-ui/core/styles';
-import jss from 'jss';
+import React from 'react'
+import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import Grid from '@material-ui/core/Grid'
+import GridList from '@material-ui/core/GridList'
+import Paper from '@material-ui/core/Paper'
+import Menu, { MenuItem } from '@material-ui/core/Menu'
+import Divider from '@material-ui/core/Divider'
+import { withStyles } from '@material-ui/core/styles'
+import jss from 'jss'
 //import preset from 'jss-preset-default';
-import './index.css';
-import './App.css';
+import './index.css'
+import './App.css'
+import App from './App'
 
 jss.setup({
 	insertionPoint: document.getElementById('insertion-point')
@@ -124,116 +127,11 @@ const sheet = jss.createStyleSheet(styles)
 
 sheet.attach()
 
-function App() {
-	return (
-		<div id="insertion-point"> 
-			<div className="App">
-        		<title className="header">
-        			<h1 className="title">ModellBahn</h1>
-        		</title>
-        		<header className="header">
-        			<h1 className="title">ModellBahn</h1>				
-        		</header>
-        		<Grid container spacing={8} direction="row"  justify="center" alignItems="center">
-        			<h3 className="thead">Ref Data</h3>
-        			<Grid item xs={2}>
-        				<Paper className="initMenu">Categories</Paper>
-        			</Grid>
-        			<Grid item xs={2}>
-    					<Paper className="initMenu">Classes</Paper>
-    				</Grid>
-    				<Grid item xs={2}>
-						<Paper className="initMenu">Construction</Paper>
-					</Grid>
-					<Grid item xs={2}>
-						<Paper className="initMenu">Controls</Paper>
-					</Grid>
-					<Grid item xs={2}>
-						<Paper className="initMenu">Countries</Paper>
-					</Grid>
-					<Grid item xs={2}>
-						<Paper className="initMenu">Couplings</Paper>
-					</Grid>
-					<Grid item xs={2}>
-						<Paper className="initMenu">Currencies</Paper>
-					</Grid>
-          			<h3 className="thead">Inventory</h3>
-          			<Grid item xs={2}>
-          				<Paper className="initMenu">Articles</Paper>
-          			</Grid>
-          			<Grid item xs={2}>
-          				<Paper className="initMenu">Decoders</Paper>
-          			</Grid>
-          			<Grid item xs={2}>
-          				<Paper className="initMenu">Prototypes</Paper>
-          			</Grid>
-          			<Grid item xs={2}>
-          				<Paper className="initMenu">Trains</Paper>
-          			</Grid>
-      			</Grid>
-      			<footer className="renderFooter(i)">
-				</footer>
-			</div>
-        </div>
-    );	
-}
-
-class initMenu extends App {
-	rendernav(){
-		const NavMenu = {
-			BACK: 0,
-			REF_DATA: 1,
-			INVENTORY: 2,
-			HOME: 3 
-		};
-	
-		const addNavBar = this.state.NavMenu.slice();
-		const ACHSFOLG_DROP = new Menu();
-		addNavBar(NavBar.HOME);
-		ACHSFOLG_DROP.init();
-		this.setState({
-			NavBar: NavBar,
-		});
-	}
-	
-	state = {
-		anchorEl: null,
-		open: false,
-	};
-	
-	handleClick = (event) => {
-		this.setState({open: true, anchorEl: event.currentTarget});
-	};
-	
-	handleClickClose(){
-		this.setState({open: false});
-	};
-	
-	render(){
-		return(
-		<div>
-			<Menu id="init" anchorEl={this.anchorEl} open={this.state.open} onRequestClose={this.handleClickClose()}>
-				<MenuItem onClick={this.handleClickClose()}>Categories</MenuItem>
-				<MenuItem onClick={this.handleClickClose()}>Classes</MenuItem>
-				<MenuItem onClick={this.handleClickClose()}>Construction</MenuItem>
-				<MenuItem onClick={this.handleClickClose()}>Controls</MenuItem>
-				<MenuItem onClick={this.handleClickClose()}>Countries</MenuItem>
-				<MenuItem onClick={this.handleClickClose()}>Couplings</MenuItem>
-				<MenuItem onClick={this.handleClickClose()}>Currencies</MenuItem>
-      			<MenuItem onClick={this.handleClickClose()}>Articles</MenuItem>
-      			<MenuItem onClick={this.handleClickClose()}>Decoders</MenuItem>
-      			<MenuItem onClick={this.handleClickClose()}>Products</MenuItem>
-      			<MenuItem onClick={this.handleClickClose()}>Prototypes</MenuItem>
-      			<MenuItem onClick={this.handleClickClose()}>Trains</MenuItem>
-      		</Menu>	
-      	</div>
-      	);
-	}	
-	
-}
-export default(initMenu);
-
-ReactDOM.render(<App />, document.querySelector("#App"));
+render((
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>
+), document.getElementById('root'));
 
 class NavBar extends React.Component {	
 	addNavBar(){
@@ -347,20 +245,31 @@ React.createElement(
 );
 
 
-class menu extends React.Component {
+/*class menu extends React.Component {
 	render() {		
 		return(
-		<div className="Modellbahn"> 
-			<style data-meta="sheet">
+			<div className="Modellbahn"> 
+		    	<header className="App-header">
+		          <h1 className="App-title">Welcome to React</h1>
+		        </header>
+		        <style data-meta="sheet">
 				<section className="Index-article">
 					<article />
 				</section>
 				<div className="Index-info">
-					<div>{/*Status*/}</div>
-					<ol>{/*TODO*/}</ol>
+					<div>{/*Status*//*}</div>
+					<ol>{/*TODO*//*}</ol>
 				</div>
-			</style>
-    	</div>
+				</style>
+		        <p className="App-intro">
+		          To get started, edit <code>src/App.js</code> and save to reload.
+		        </p>
+		        <footer>
+		        	<h2 className="URL-title">Links</h2>
+		        	<li><a class="btn btn-info btn-sm" href='index.js'>Index </a></li>,
+		        	<li><a class="btn btn-info btn-sm" href='NoughtCrosses.js'>Nought and Crosses game </a></li>
+		        </footer>	
+		   </div>
 		);
 	}
 }
@@ -368,4 +277,4 @@ class menu extends React.Component {
 ReactDOM.render(
 	<menu />,
 	document.getElementById('root')
-);
+);*/
