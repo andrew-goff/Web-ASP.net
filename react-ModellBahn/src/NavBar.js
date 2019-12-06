@@ -14,6 +14,8 @@ import MenuIcon from '@material-ui/core/Menu'
 import Articles from './Articles'
 import Decoders from './Decoders'
 import Products from './Products'
+import Prototypes from './Prototypes'
+import Trains from './Trains'
 
 const styles = {
 	html: {

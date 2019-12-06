@@ -1,18 +1,21 @@
 import React, {Component} from 'react'
 import Header from './Header'
+import Couplings from './Couplings'
 import Main from './Main'
 import './App.css'
 
 class App extends Component {
 	state = {
-		Categories: []
+		//Categories: []
+		couplings: []
 	}
 	
 	componentDidMount() {
-			fetch()
+			fetch('http://jsonplaceholder.typicode.com/users')
 			.then(res => res.json())
 			.then((data) => {
-				this.setState({Categories: data })
+				//this.setState({Categories: data })
+				this.setState({couplings: data})
 			})	
 			.catch(console.log)
 	}
@@ -20,9 +23,9 @@ class App extends Component {
 	render(){
 		return (
 			<div>
-			<Header />
+			<Header />			
 			<Main />
-		
+			<Couplings couplings={this.state.couplings} />
 		</div>
 		);
 	}

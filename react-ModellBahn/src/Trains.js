@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import AppBar from '@material-ui/core/AppBar'
+import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
 import GridList from '@material-ui/core/GridList'
 import Paper from '@material-ui/core/Paper'
-import Toolbar from '@material-ui/core/Toolbar'
+import NavBar from './NavBar'
 import { withStyles } from '@material-ui/core/styles'
 import Footer from './Footer'
 
@@ -95,48 +95,32 @@ const styles = {
 			position: 'fixed',
 			width: 'inherit',
 		},
-		
-		ToolBar: {
-			backgroundcolor: 'LightSkyBlue',
-			border: '0.1rem solid LightSkyBlue',
-			borderradius: '0.25em',
-			color: 'white',
-			fontsize: '1rem',
-			padding: '0.3rem 0.3rem'
-		}
 };	
 
-const Couplings = ({ couplings }) => {
-	return (
+const Trains = () => (
 	<div>
-		<h1 className="title">Couplings</h1>
-		<div className="header">
-		<AppBar position="static">
-			<Toolbar>
-				{couplings.map((couplings) => (
-					<Grid variant="paper" container direction="row" justify="center" alignItems="center">
-						<div>
-							<Grid item xs>
-								<Paper className={styles.paper}>{couplings.Name}</Paper>
-							</Grid>
-							<Grid item xs>
-								<Paper className={styles.paper}>{couplings.Description}</Paper>
-							</Grid>
-							<Grid item xs>
-								<Paper className={styles.paper}>{couplings.Picture}</Paper>
-							</Grid>
-							<Grid item xs>
-								<Paper className={styles.paper}>{couplings.Add}</Paper>
-							</Grid>	
-						</div>
-					</Grid>
-				))}
-			</Toolbar>
-		</AppBar>
+		<h1>Trains</h1>
+		<Switch>
+		</Switch>
+		<Grid container direction="row" justify="center" alignItems="center">
+			<Grid item xs>
+				<Paper className={styles.paper}>Name</Paper>
+			</Grid>
+			<Grid item xs>
+				<Paper className={styles.paper}>Train Type</Paper>
+			</Grid>
+			<Grid item xs>
+				<Paper className={styles.paper}>Description</Paper>
+			</Grid>
+			<Grid item xs>
+				<Paper className={styles.paper}>Length</Paper>
+			</Grid>
+			<Grid item xs>
+				<Paper className={styles.paper}>+</Paper>
+			</Grid>
+		</Grid>
 		<Footer />
-		</div>
 	</div>
-	)
-};
+)
 	
-export default withStyles(styles)(Couplings);
+export default withStyles(styles)(Trains);
